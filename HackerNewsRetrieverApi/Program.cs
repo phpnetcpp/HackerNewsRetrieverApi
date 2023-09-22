@@ -9,6 +9,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient(Constants.HackerNewsApi.Name, (_, httpClient)
     => httpClient.BaseAddress = new Uri(builder.Configuration.GetValue<string>(Constants.HackerNewsApi.UrlSetting)));
 
+builder.Services.AddMemoryCache();
+
 var app = builder.Build();
 
 app.UseSwagger();

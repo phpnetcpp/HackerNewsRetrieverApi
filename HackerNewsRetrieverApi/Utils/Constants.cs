@@ -15,9 +15,10 @@ public static class Constants
         }
     }
 
-    public static class ErrorCodes
+    public static class ErrorMessages
     {
         public const string InvalidValue = "Invalid value for '{0}' parameter.";
         public const string StoriesRetrieving = "Error on stories retrieving.";
+        public const string CacheSetting = "Error on cache setting.";
     }
 }
