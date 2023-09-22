@@ -5,7 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("hackernews", (_, httpClient)
+    => httpClient.BaseAddress = new Uri(builder.Configuration.GetValue<string>("HackerNewsApiUrl")));
 
 var app = builder.Build();
 
