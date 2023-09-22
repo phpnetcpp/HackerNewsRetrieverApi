@@ -21,4 +21,14 @@ public static class Constants
         public const string StoriesRetrieving = "Error on stories retrieving.";
         public const string CacheSetting = "Error on cache setting.";
     }
+
+    public static class FixedRateLimiter
+    {
+        public const string Name = "fixed";
+    }
+
+    public static class CacheBestStories
+    {
+        public const string Name = "beststories";
+    }
 }

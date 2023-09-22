@@ -1,5 +1,6 @@
 using HackerNewsRetrieverApi.Controllers;
 using HackerNewsRetrieverApi.Utils;
+using Microsoft.AspNetCore.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,19 @@ builder.Services.AddHttpClient(Constants.HackerNewsApi.Name, (_, httpClient)
 
 builder.Services.AddMemoryCache();
 
+builder.Services.AddRateLimiter(limiterOptions =>
+{
+    limiterOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    limiterOptions.AddFixedWindowLimiter(
+        Constants.FixedRateLimiter.Name,
+        options =>
+        {
+            options.Window = TimeSpan.FromSeconds(10);
+            options.PermitLimit = 5;
+        });
+});
+
 var app = builder.Build();
 
 app.UseSwagger();
@@ -18,6 +32,9 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.MapGet("api/v1/stories/best", BestStoriesEndpoints.Get);
+app.UseRateLimiter();
+
+app.MapGet("api/v1/stories/best", BestStoriesEndpoints.Get)
+    .RequireRateLimiting(Constants.FixedRateLimiter.Name);
 
 app.Run();

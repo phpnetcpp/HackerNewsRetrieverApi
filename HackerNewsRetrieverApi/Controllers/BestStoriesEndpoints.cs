@@ -39,7 +39,7 @@ public static class BestStoriesEndpoints
         };
         try
         {
-            cache.Set($"beststories_{number}", stories, cacheEntryOptions);
+            cache.Set($"{Constants.CacheBestStories.Name}_{number}", stories, cacheEntryOptions);
         }
         catch (Exception)
         {
