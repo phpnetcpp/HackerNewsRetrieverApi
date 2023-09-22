@@ -40,9 +40,9 @@ public static class BestStoriesEndpoints
         var tasks = storyIds.Select(async id =>
         {
             var response = await httpClient.GetStringAsync(string.Format(Constants.HackerNewsApi.Urls.Story, id));
-            var options = new JsonSerializerOptions()
+            var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
             {
-                PropertyNameCaseInsensitive = true
+                PropertyNamingPolicy = new StoryNamingPolicy()
             };
             options.Converters.Add(new DateTimeOffsetJsonConverter());
 
