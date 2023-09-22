@@ -56,7 +56,8 @@ To retrieve the details of the top 10 best stories:
 * Add rate limiting to prevent overloading the Hacker News API
 * Implement pagination for the results to handle large n values efficiently
 * Create a more comprehensive error handling system
-Add unit tests to ensure the reliability of the API.
+* Add unit tests to ensure the reliability of the API
+* Update to a distributed cache in a distributed environment to ensure consistency across multiple instances of the application
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
