@@ -14,6 +14,6 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.MapGet("/stories/best", BestStoriesEndpoints.Get);
+app.MapGet("api/v1/stories/best", BestStoriesEndpoints.Get);
 
 app.Run();

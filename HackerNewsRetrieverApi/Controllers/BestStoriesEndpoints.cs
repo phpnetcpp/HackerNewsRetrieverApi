@@ -15,10 +15,17 @@ public static class BestStoriesEndpoints
 
         var httpClient = factory.CreateClient();
 
-        var bestStoryIds = await GetBestStoryIdsAsync(httpClient);
-        var stories = await GetStoriesAsync(httpClient, bestStoryIds.Take(number));
+        try
+        {
+            var bestStoryIds = await GetBestStoryIdsAsync(httpClient);
+            var stories = await GetStoriesAsync(httpClient, bestStoryIds.Take(number));
 
-        return Results.Ok(stories.OrderByDescending(s => s.Score));
+            return Results.Ok(stories.OrderByDescending(s => s.Score));
+        }
+        catch (Exception)
+        {
+            return Results.BadRequest("Error on data retrieving.");
+        }
     }
 
     private static async Task<IEnumerable<int>> GetBestStoryIdsAsync(HttpClient httpClient)
