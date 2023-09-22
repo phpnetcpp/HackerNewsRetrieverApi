@@ -19,13 +19,31 @@ This is a Minimal API project in ASP.NET that provides an endpoint to retrieve d
    
 2. Build and run the application:
 
+You can run the application using .NET CLI or your preferred IDE with launch profiles
+
+2.1. Using .NET CLI:
+
 ```
    dotnet run
 ```
-   
-3. The API will be available at https://localhost:7188.
 
-   > Open a web browser or use a tool like Postman to test the API by making GET requests to https://localhost:7188/api/v1/stories/best?number={number} where {number} is the number of stories you want to retrieve
+2.1.1. You can use any profile from launchSettings.json file
+
+```
+   dotnet run --launch-profile https
+```
+
+2.2. Using Visual Studio Code:
+
+Open the project folder in Visual Studio Code, and press F5 to run the application. Ensure that the .vscode/launch.json file contains a configuration for running the API
+
+2.3. Using Visual Studio:
+
+Open the project in Visual Studio and select the appropriate launch profile (e.g., https) from the dropdown menu in the toolbar. Then, press the "Run" button or hit F5 to start the application
+
+3. The API will be available at http://localhost:5138 or https://localhost:7188:
+
+   > Open a web browser or use a tool like Postman to test the API by making GET requests to http://localhost:5138/api/v1/stories/best?number={number} where {number} is the number of stories you want to retrieve
 
 ## API Endpoints
 
