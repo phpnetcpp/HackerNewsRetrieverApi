@@ -10,10 +10,10 @@ public static class BestStoriesEndpoints
     {
         if (number <= 0)
         {
-            return Results.BadRequest($"Invalid value for '{nameof(number)}' parameter.");
+            return Results.BadRequest(string.Format(Constants.ErrorCodes.InvalidValue, nameof(number)));
         }
 
-        var httpClient = factory.CreateClient("hackernews");
+        var httpClient = factory.CreateClient(Constants.HackerNewsApi.Name);
 
         try
         {
@@ -24,13 +24,13 @@ public static class BestStoriesEndpoints
         }
         catch (Exception)
         {
-            return Results.BadRequest("Error on stories retrieving.");
+            return Results.BadRequest(Constants.ErrorCodes.StoriesRetrieving);
         }
     }
 
     private static async Task<IEnumerable<int>> GetBestStoryIdsAsync(HttpClient httpClient)
     {
-        var response = await httpClient.GetStringAsync("v0/beststories.json");
+        var response = await httpClient.GetStringAsync(Constants.HackerNewsApi.Urls.BestStories);
 
         return JsonSerializer.Deserialize<IEnumerable<int>>(response);
     }
@@ -39,7 +39,7 @@ public static class BestStoriesEndpoints
     {
         var tasks = storyIds.Select(async id =>
         {
-            var response = await httpClient.GetStringAsync($"v0/item/{id}.json");
+            var response = await httpClient.GetStringAsync(string.Format(Constants.HackerNewsApi.Urls.Story, id));
             var options = new JsonSerializerOptions()
             {
                 PropertyNameCaseInsensitive = true
